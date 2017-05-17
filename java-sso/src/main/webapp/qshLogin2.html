@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>前生活-登录页</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	var syncStateUrl = getSyncUrl2();
+
+	//基于iframe框架
+	function onLoad() {
+		if (this.src == "") {
+			return;
+		}
+		var iframe = document.getElementById("iframe");
+		var win = iframe.contentWindow;
+		win.postMessage("动态传递消息", "*");
+	}
+
+	function login() {
+		setCookie("state", "online");
+		setCookie("platform", "qsh");
+		//登录成功后同步状态
+		iframe.src = syncStateUrl + "?state=online";
+		alert("成功登录");
+	}
+	
+	function logout(){
+		setCookie("state", "passport");
+		delCookie("platform");
+		//登出成功后同步状态
+		iframe.src = syncStateUrl + "?state=offline";
+		alert("成功登出");
+	}
+</script>
+</head>
+<body>
+	前生活
+	<br />
+	<a href="javascript:void(0)" onclick="login()">登录</a> | 
+	<a href="javascript:void(0)" onclick="logout()">登出</a>
+
+</body>
+<iframe style="display: none" id="iframe" src="" onload="onLoad()"></iframe>
+</html>

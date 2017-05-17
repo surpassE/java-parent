@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>鸿坤金服-首页</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		var state = getCookie("state");
+		//通过cookie与后台交互，实现登录状态的验证
+		//...
+		var d = document.getElementById("sata");
+		if (state == "online") {
+			d.innerHTML = "<font color='red'>在线</font>";
+		} else {
+			d.innerHTML = "<font color='red'>离线</font>";
+		}
+	}
+</script>
+</head>
+<body>
+	我是鸿坤金服首页
+	<br /> 登录状态：
+	<div id="sata"></div>
+</body>
+</html>

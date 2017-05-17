@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>前生活-首页</title>
+
+<script src="js/common.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	//http://www.qsh.com:8080/loginController.do?toIndex
+
+	var target = getTarget();
+	var passportUrl = getPassport();
+
+	//先从浏览器中的cookie中获得state
+	var state = getCookie("state");
+	//从请求的url中获得state
+	if (state == 'undefined' || state == '' || state == null) {
+		state = getUrlParam("state")
+	}
+	if (state == "passport") {
+		delCookie("state");
+	}
+	//此时state还为空，那么去鸿坤金服去获得登录状态的state，鸿坤既金服重定向回来的地址中一定含有state参数，切不为空或是空串
+	if (state == 'undefined' || state == '' || state == null || state == "passport") {
+		window.location = passportUrl + encodeURIComponent(target);
+	} else if (state == "online") {
+		setCookie("state", state);
+		setCookie("platform", "qsh");
+		setCookie("state", "passport");
+	} else{
+		setCookie("state", "passport");
+	}
+	
+
+	window.onload = function() {
+		var d = document.getElementById("sata");
+		if (state == "online") {
+			d.innerHTML = "<font color='red'>在线</font>";
+		} else {
+			d.innerHTML = "<font color='red'>离线</font>";
+		}
+	}
+</script>
+</head>
+<body>
+	我是前生活首页
+	<br /> 登录状态：
+	<div id="sata"></div>
+</body>
+</html>

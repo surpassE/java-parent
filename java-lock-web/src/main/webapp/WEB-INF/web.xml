@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>java-sso</display-name>
+
+	<context-param>    
+        <param-name>spring.profiles.active</param-name>    
+        <param-value>dev</param-value>    
+    </context-param>    
+    <context-param>    
+        <param-name>spring.profiles.default</param-name>    
+        <param-value>dev</param-value>    
+    </context-param>  
+    <context-param>    
+        <param-name>spring.liveBeansView.mbeanDomain</param-name>    
+        <param-value>dev</param-value>    
+    </context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring-core.xml;
+		</param-value>
+	</context-param>
+	
+	<listener>
+		<description>初始化Spring框架</description>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<description>加载SpringMVC配置信息</description>
+		<servlet-name>springMvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<description>spring mvc 配置文件</description>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- HttpSession的失效时间 -->
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+</web-app>

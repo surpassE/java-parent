@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>鸿坤金服-通行证验证页</title>
+
+<script src="js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+	//url解码
+	var target = decodeURIComponent(getUrlParam("target"));
+	var state = getCookie("state");
+	if (state == 'undefined' || state == '' || state == null) {
+		state = "offline";
+	}
+	//window.location = "http://www.qsh.com:8080/index.html?state=" + state;
+	window.location = target + "?state=" + state;
+</script>
+</head>
+<body>
+</body>
+</html>

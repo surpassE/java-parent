@@ -35,3 +35,5 @@ target/
 Thumbs.d
 /bin
 .externalToolBuilders
+
+/java-ignore

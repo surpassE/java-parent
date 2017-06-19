@@ -12,6 +12,7 @@
 		<module>java-sso</module>
 		<module>java-lock-web</module>
 		<module>java-book</module>
+		<module>java-ignore</module>
 	</modules>
 
 	<properties>

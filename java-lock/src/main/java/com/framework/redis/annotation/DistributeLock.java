@@ -39,17 +39,19 @@ public @interface DistributeLock {
 	boolean expression() default true;
 	
 	/**
-	 * 锁自动过期时间(秒)
+	 * 锁自动过期时间(秒),默认值10s
 	 * 
 	 * @return
 	 */
-	int expireTime();
+	int expireTime() default 10;
 
 	/**
-	 * 最长等待时间(秒)
+	 * 最长等待时间(秒)<br/>
+	 * 	-1：默认值，表示直到拿到锁为止
+	 *  -2：执行lock(),尝试拿锁一次
 	 * 
 	 * @return
 	 */
-	int waitTime();
+	int waitTime() default -1;
 
 }

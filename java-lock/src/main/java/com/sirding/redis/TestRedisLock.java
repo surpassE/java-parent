@@ -96,7 +96,6 @@ public class TestRedisLock {
 						Thread.currentThread().wait(3000);
 						logger.debug("我醒了");
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -105,7 +104,6 @@ public class TestRedisLock {
 		try {
 			Thread.sleep(1000000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

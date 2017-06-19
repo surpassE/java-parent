@@ -8,7 +8,7 @@ import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
 
-public class EnhancerDemo {
+public class EnhancerDemo{
 
 	static Logger logger = LogManager.getLogger(EnhancerDemo.class);
 	

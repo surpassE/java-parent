@@ -49,7 +49,6 @@ public class Goods implements Serializable, Comparable<Goods> {
 
 	@Override
 	public int compareTo(Goods o) {
-		// TODO Auto-generated method stub
 		return (int)(o.capacity - this.capacity);
 	}
 }

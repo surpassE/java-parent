@@ -1,4 +1,4 @@
-package com.framework.redis.impl;
+package com.framework.redis;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;

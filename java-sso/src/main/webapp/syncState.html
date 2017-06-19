@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>鸿坤金服-同步登录状态</title>
+
+<script src="js/common.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var state = getUrlParam("state");
+	if(state == "online"){
+		setCookie("state", state);
+		setCookie("platform", "hkjf");
+	}else{
+		delCookie("state");
+		delCookie("platform");
+	}
+	//此处用于动态接收参数
+	window.onmessage = function(e) {
+		e = e || event;
+	}
+</script>
+</head>
+<body>
+</body>
+</html>

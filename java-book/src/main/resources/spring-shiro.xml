@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:c="http://www.springframework.org/schema/c" xmlns:cache="http://www.springframework.org/schema/cache" xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<description>
+		shiro
+	</description>
+	<!-- ================= 缓存配置 ========start============== -->
+	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+		<description>使用第三方redi缓存管理</description>
+	    <property name="host" value="127.0.0.1" />
+	    <property name="port" value="2185" />
+	    <property name="timeout" value="5000" />
+	</bean>
+	
+	<bean id="redisCacheManager" class="org.crazycake.shiro.RedisCacheManager">
+	    <property name="redisManager" ref="redisManager"/>
+	</bean>
+	<!-- ================= 缓存配置 ========end============== -->
+	
+	
+	<!-- ================= session管理配置 ========end============== -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	    <description>自定义session管理</description>
+	    <property name="globalSessionTimeout" value="1800000" />
+	    <property name="sessionIdCookie" ref="sessionIdCookie" />
+	    <!-- 自定义session监听器 -->
+	    <property name="sessionListeners">
+	    	<util:list>
+	    		<ref bean="custSessionListener"/>
+	    	</util:list>
+	    </property>
+	    <!-- 是否开启 检测，默认开启 -->
+	  	<property name="sessionValidationSchedulerEnabled" value="true"/>
+	    <!-- 间隔多少时间检查，不配置是60分钟 -->	
+	  	<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
+	  	<!-- 是否删除无效的，默认也是开启 -->
+	  	<property name="deleteInvalidSessions" value="true"/>
+	  	<property name="sessionDAO" ref="redisSessionDAO"/>
+	</bean>
+	
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<description>基于quart实现的会话验证调度器</description>
+		 <!-- 间隔多少时间检查，不配置是60分钟 -->
+	     <property name="interval" value="3600000"/>
+	     <property name="sessionManager" ref="sessionManager"/>
+	</bean>
+	
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <description>会话Cookie模板</description>
+        <constructor-arg value="sid"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="-1"/><!-- cookie有效时间（s）-1:浏览器关闭是就清楚cookie -->
+    </bean>
+    
+	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+    <bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+	    <description>session CURD管理</description>
+	    <property name="redisManager" ref="redisManager"/>
+	    <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+	</bean>
+	
+	<bean id="custSessionListener" class="com.sirding.core.shiro.listener.CustSessionListener">
+		<description>自定义session监听器</description>
+		<property name="redisSessionDao" ref="redisSessionDAO"/>
+	</bean>
+	<!-- ================= session管理配置 ========end============== -->
+
+	
+	<!-- ================= remember功能配置 ========start============== -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30天 -->
+    </bean>
+
+    <!-- rememberMe管理器 -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <description>
+       		rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位）
+        </description>
+        <property name="cipherKey"
+                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
+    </bean>
+	<!-- ================= remember功能配置 ========end============== -->
+
+	
+	<!-- ================= 核心配置 ========start============== -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	    <property name="sessionManager" ref="sessionManager"/>
+	    <property name="cacheManager" ref="redisCacheManager"/>
+	    <property name="realm" ref="custUserRealm"/>
+	</bean>
+	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	    <description>
+	    	shirofilter要同web.xml中的filter的name对应
+	    </description>
+	    <property name="securityManager" ref="securityManager"/>
+	    <property name="loginUrl" value="/auth/login.jsp"/>
+	    <property name="successUrl" value="/shiro/home.jsp"/>
+	    <property name="unauthorizedUrl" value="/auth/authFail.htm"/>
+	    <property name="filters">
+	        <util:map>
+	            <entry key="custShiorFilter" value-ref="custShiroFilter"/>
+	        </util:map>
+	    </property>
+	    <property name="filterChainDefinitions">
+	    	<value>
+	    		/auth/** = anon
+	    		/comjs/** = anon
+	    		/comcss/** = anon
+	    		/comjsp/** = anon
+	    		/shiro/** = authc
+	    		/admin/** = authc, roles[admin]
+	    		/sec/** = authc
+	            /docs/** = authc, perms[document:read]
+	            /user/** = authc, roles[admin], perms[user:query]
+	            /menu/** = authc, roles[secadmin]
+	            /role/** = authc, roles[secdmin]
+	            /** = authc
+	            
+	    	</value>
+	    </property>
+	</bean>
+
+	<bean id="custShiroFilter" class="com.sirding.core.shiro.filter.CustShiroFilter"/>
+	
+	<!-- 自定义权限控制 -->	
+	<bean id="custUserRealm" class="com.sirding.core.shiro.realm.CustUserRealm" />
+	
+	<!-- Shiro生命周期处理器-->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	<!-- ================= 核心配置 ========start============== -->
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/cache   
+	http://www.springframework.org/schema/cache/spring-cache.xsd
+	http://www.springframework.org/schema/websocket 
+	http://www.springframework.org/schema/websocket/spring-websocket.xsd
+">
+
+	<!-- 
+		allowed-origins:配置验证来源
+			1、必须同一来源			：默认
+			2、指定的规则列表			：allowed-origins="http://mydomain.com,https://mydomain.com"
+			3、允许所有的来源都能访问		：allowed-origins="*"
+	
+	 -->
+	<!-- <websocket:handlers allowed-origins="*">
+        <websocket:mapping path="/myHandler" handler="myHandler"/>
+
+    <bean id="myHandler" class="com.sirding.core.ws.MyHandler"/> -->
+	
+	
+	
+	<!-- 客户端向服务端发送消息的前缀 对应 controller的mapping的@MessageMapping("/hello")，客户端发送请求的地址为/app/hello -->
+	<websocket:message-broker application-destination-prefix="/app">
+		<!-- 此配置作为备选的切入点，如果客户端不支持stomp协议，那么将通过sockjs通过如下入口进行数据交互   -->
+		<websocket:stomp-endpoint path="/myws">
+			<!-- 支持sockjs -->
+			<websocket:sockjs/>
+		</websocket:stomp-endpoint>
+		<!--  stomp-broker-relay 和 simple-broker 二者只能出现一次，具体约束见spring-websocket.xsd -->
+		<!-- <websocket:stomp-broker-relay prefix="/topic"/> -->
+		<!-- 返回消息的前缀，对应controller中的@SendTo("/topic/greetings")中前缀的是/topic的将接口 -->
+		<websocket:simple-broker prefix="/topic" />
+		
+		
+		<!-- 如下配置暂无实际需求 -->  
+        <websocket:message-converters register-defaults="true">  
+            <bean class="org.springframework.messaging.converter.StringMessageConverter"/>  
+            <bean class="org.springframework.messaging.converter.ByteArrayMessageConverter"/>  
+        </websocket:message-converters>
+	</websocket:message-broker>
+	
+</beans>

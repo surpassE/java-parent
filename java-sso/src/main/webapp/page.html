@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery Easy-Paging Test</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"
+	charset="utf-8"></script>
+<script src="js/paging/jquery.paging.min.js" charset="utf-8"></script>
+</head>
+<hr>
+
+<div id="paging"></div>
+
+<form >
+	
+</form>
+
+每页<select id="perPage" onchange="chgPerPage()">
+	<option value="10">10</option>
+	<option value="20">20</option>
+	<option value="50">50</option>
+	<option value="100">100</option>
+</select>
+<br/>
+页数<input type="text" id="toPage" > <a href="javascript:void(0)" onclick="tz()"> GO </a>
+
+<script>
+
+var paging = $("#paging").paging(1000, {
+	format: '[< nncnn >] -',
+	perpage: 10,
+	page:1,
+	onSelect: function (page) {
+		$.ajax({
+			"url": 'teController.do?method=page&start=' + this.slice[0] + '&end=' + this.slice[1] + '&page=' + page,
+			"success": function(data) {
+				// content replace
+			}
+		});
+	},
+	onFormat: function (type) {
+		switch (type) {
+		case 'block': // n and c
+			if (!this.active)
+				return '<em><span class="disabled">[' + this.value + ']&nbsp;</span></em>';
+			else if (this.value != this.page)
+				return '<a href="#' + this.value + '">[' + this.value + ']&nbsp;</a>';
+			return '<em><span class="current">[' + this.value + ']&nbsp;</span></em>';
+		case 'next': // >
+			return '<a><font color="green">&nbsp;下一页&nbsp;</font></a>';
+		case 'prev': // <
+			return '<a><font color="green">&nbsp;上一页&nbsp;</font></a>';
+		case 'first': // [
+			return '<a><font color="red">&nbsp;首页&nbsp;</font></a>';
+		case 'last': // ]
+			return '<a><font color="red">&nbsp;末页&nbsp;</font></a>';
+		case 'fill':
+			console.info(this);
+			if (this.active){
+				console.info(this.pos);
+				return "&nbsp;&nbsp;&nbsp;当前 [" + this.page + "]共[" + this.pages + "]页";
+			}
+			return "";
+		}
+	},
+});
+
+function tz(){
+	paging.setPage($("#toPage").val());
+}
+
+function chgPerPage(){
+	console.info(paging);
+	console.info($("#perPage").val());
+	paging.a.perpage = $("#perPage").val();
+}
+</script>
+</body>
+</html>

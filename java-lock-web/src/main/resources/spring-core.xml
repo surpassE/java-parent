@@ -33,6 +33,9 @@
 	
 	<!-- 扫描切面注解 -->
 	<!-- <bean class="com.framework.redis.aop.DistributeLockAop"/> -->
+	<context:component-scan base-package="com.framework.redis" />
+	<!-- 如果切面要切在controller中，务必配置如下配置在mvc的配置xml中 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 	
 	<!-- 扫描controller定时任务的@Scheduled注解 -->
     <task:annotation-driven/>

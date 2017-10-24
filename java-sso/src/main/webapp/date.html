@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/dateplugin/My97DatePicker/WdatePicker.js"></script>
+
+<link rel="stylesheet" href="js/jquery-ui/jquery-ui.min.css">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jquery-ui/jquery-ui.min.js"></script>
+  
+<script type="text/javascript">
+$(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
+</head>
+<body>
+时间插件：My97DatePicker<br/>
+官网：http://www.my97.net/demo/index.htm<br/>
+<input id="d12" type="text"/>
+<img onclick="WdatePicker({el:'d12'})" src="js/dateplugin/My97DatePicker/skin/datePicker.gif" width="16" height="22" align="absmiddle">
+<br/><br/>
+<br/>Jquery UI (Datepicker)<br/>
+<p>日期：<input type="text" id="datepicker"></p>
+</body>
+</html>

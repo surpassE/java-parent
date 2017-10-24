@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.framework.redis.Lock;
+import com.framework.redis.RedisLock;
 import com.framework.redis.annotation.DistributeLock;
-import com.framework.redis.impl.RedisLock;
 
 @Controller
 @RequestMapping("/lockController")

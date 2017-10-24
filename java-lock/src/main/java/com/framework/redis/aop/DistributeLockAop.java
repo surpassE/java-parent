@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 import com.framework.redis.Lock;
 import com.framework.redis.annotation.DistributeLock;
-import com.framework.redis.impl.RedisLock;
+import com.framework.redis.RedisLock;
 
 /**
  * 分布式锁切面
@@ -55,8 +55,7 @@ public class DistributeLockAop {
 			String defKey = getDefKey(distributeLock, joinPoint.getArgs());
 			Lock lock = new RedisLock(defKey, distributeLock.expireTime());
 			try {
-				if (distributeLock.waitTime() > 0 && 
-						lock.tryLock(distributeLock.waitTime()) || 
+				if (((distributeLock.waitTime() > 0 || distributeLock.waitTime() == -1) && lock.tryLock(distributeLock.waitTime())) || 
 						lock.lock()) {
 					return joinPoint.proceed();
 				} else {

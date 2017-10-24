@@ -2,7 +2,10 @@ package com.sirding.javaeight;
 
 import static java.lang.System.out;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import org.junit.Test;
+
 
 public class LambdaDemo {
 
@@ -79,5 +83,26 @@ public class LambdaDemo {
 	public void testL()	{
 		int[] arr = new int[]{1,2,3,4,5,6,7,8};
 		
+	}
+	
+	@Test
+	public void testRun(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("Hello");
+			}
+		}).start();
+		
+		new Thread(() -> {System.out.println("hello world");}).start();
+	}
+	
+	@Test
+	public void testCompare(){
+		List<Model> list = new ArrayList<>();
+		list.sort((m1, m2) -> m1.getName().compareTo(m2.getName()));
+		Collections.sort(list, (m1, m2) -> m1.getName().compareTo(m2.getName()));
+		//多条件组合排序
+		list.sort(Comparator.comparing(Model::getName).thenComparing(Model::getAge));
 	}
 }

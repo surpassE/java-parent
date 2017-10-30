@@ -1,3 +1,5 @@
+package com.sirding;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,10 +10,10 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
-public class Demo {
+public class TestZip {
 
 	public static void main(String[] args) throws Exception {
-		Demo demo = new Demo();
+		TestZip demo = new TestZip();
 		demo.readZipFile(new File("C:/yrtz/test/2017-09-18.zip"));
 	}
 	@SuppressWarnings("resource")

@@ -1,11 +1,10 @@
 package com.sirding.javaeight;
 
-import org.springframework.beans.BeanUtils;
-
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * Created by dzc on 17.9.14.
@@ -52,6 +51,7 @@ public class Streams {
 
         final Map<Status, List<Task>> map = tasks.stream().collect(Collectors.groupingBy(Task::getStatus));
         System.out.println(map);
+        
     }
 
 }

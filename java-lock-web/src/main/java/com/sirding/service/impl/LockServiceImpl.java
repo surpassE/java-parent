@@ -9,7 +9,7 @@ import com.sirding.service.LockService;
 public class LockServiceImpl implements LockService {
 
 	@Override
-	// @DistributeLock(key = "tlimpl", expression = false)
+	@DistributeLock(key = "tlimpl", expression = false)
 	public void testLock() {
 		System.out.println("testLock");
 	}

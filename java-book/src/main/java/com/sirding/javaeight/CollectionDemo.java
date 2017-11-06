@@ -1,16 +1,9 @@
 package com.sirding.javaeight;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import static java.util.stream.Collectors.*;
+import static java.util.Comparator.*;
 
 import org.junit.Test;
 
@@ -40,14 +33,26 @@ public class CollectionDemo {
 	
 	@Test
 	public void test1(){
-		List<String> l = Arrays.asList(arr).stream().collect(Collectors.toList());
+		List<String> l = Arrays.asList(arr).stream().collect(toList());
 		System.out.println(Arrays.stream(arr).anyMatch(Predicate.isEqual(null)));
 		System.out.println(l.size());
 		System.out.println("set中所有字符串的长度和 length:" + set.stream().mapToInt(String::length).sum());
-		System.out.println(list.stream().filter(Objects::nonNull).distinct().collect(Collectors.toMap(k -> k, v -> v)));;
-		List<String> r = map.values().stream().filter(v -> "zhic.ding".equals(v)).collect(Collectors.toList());
+		System.out.println(list.stream().filter(Objects::nonNull).distinct().collect(toMap(k -> k, v -> v)));;
+		List<String> r = map.values().stream().filter(v -> "zhic.ding".equals(v)).collect(toList());
 		System.out.println(r);
 	}
-	
-	
+
+	@Test
+	public void test2(){
+		List<Model> list = Arrays.asList(new Model("1", 1), new Model("3", 3), new Model("2", 2));
+		list.sort((Model m1, Model m2) -> m1.getName().compareTo(m2.getName()));
+//		排序择优方法
+		list.sort(comparing(Model::getName));
+		System.out.println(list);
+	}
+
+
+
+
+
 }

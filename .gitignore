@@ -35,5 +35,6 @@ target/
 Thumbs.d
 /bin
 .externalToolBuilders
-
-/java-ignore
+startModule/
+*rebel-remote.xml.bak
+*rebel.xml

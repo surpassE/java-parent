@@ -17,6 +17,8 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 
 public class TestRedisLock {
+	private static final String HOST = "192.168.1.250";	// 127.0.0.1
+	private static final Integer PORT = 6379;	// 2185
 	Logger logger = Logger.getLogger(getClass());
 	public static JedisPool pool;
 	public static Jedis jedis;
@@ -35,13 +37,13 @@ public class TestRedisLock {
 				config.setMaxWaitMillis(1000);
 				//在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；  
 				config.setTestOnBorrow(true); 
-				pool = new JedisPool(config, "127.0.0.1", 2185);
+				pool = new JedisPool(config, HOST, PORT);
 				jedis = pool.getResource();
 				JedisConnectionFactory jcf = new JedisConnectionFactory(config);
-				JedisShardInfo shardInfo = new JedisShardInfo("127.0.0.1", 2185);
+				JedisShardInfo shardInfo = new JedisShardInfo(HOST, PORT);
 				jcf.setShardInfo(shardInfo);
 				jcf.setUsePool(true);
-				jcf.setHostName("127.0.0.1");
+				jcf.setHostName(HOST);
 				jcf.setPort(2185);
 				connection = jcf.getConnection();
 			} catch (Exception e) {
@@ -58,12 +60,12 @@ public class TestRedisLock {
 	@Test
 	public void testAdd(){
 		Jedis jedis = pool.getResource(); 
-		long count = jedis.setnx("test", String.valueOf(System.currentTimeMillis()));
+		long count = jedis.setnx("test:", String.valueOf(System.currentTimeMillis()));
 		
 		long time = jedis.ttl("test");
 		System.out.println("过期时间：" + time);
 		
-//		count = jedis.expire("test", 10);
+		count = jedis.expire("test", 12000);
 		logger.debug(count);
 		jedis.close();
 		
@@ -129,5 +131,25 @@ public class TestRedisLock {
 	public static synchronized Jedis getJedis(){
 		System.out.println("获得jedis连接" + count.incrementAndGet());
 		return pool.getResource();
+	}
+	
+	/**
+	 *  @Description    : 模糊删除
+	 *  @Method_Name    : testDel
+	 *  @return         : void
+	 *  @Creation Date  : 2017年11月1日 上午10:38:38 
+	 *  @Author         : zhichaoding@hongkun.com zc.ding
+	 */
+	@Test
+	public void testDel() {
+		String pattern = "SUBMIT_TOKEN:*";
+		Jedis jedis = pool.getResource(); 
+		StringBuffer sb = new StringBuffer();
+		sb.append(pattern);
+		Set<byte[]> set = jedis.keys(sb.toString().getBytes());
+		System.out.println(set.size());
+		set.forEach(e -> jedis.del(e));
+		
+		System.out.println(jedis.keys("TCC:*").size());
 	}
 }

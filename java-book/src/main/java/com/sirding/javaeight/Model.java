@@ -1,9 +1,19 @@
 package com.sirding.javaeight;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Model {
 
 	private String name;
 	private int age;
+
+	public Model(){}
+
+	public Model(String name, int age){
+		this.name = name;
+		this.age = age;
+	}
 	public String getName() {
 		return name;
 	}
@@ -15,5 +25,10 @@ public class Model {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.DEFAULT_STYLE);
 	}
 }

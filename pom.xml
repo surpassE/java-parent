@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.10.RELEASE</version>
+    </parent>
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sirding</groupId>
 	<artifactId>java-parent</artifactId>
@@ -14,16 +20,19 @@
 		<module>java-lock-web</module>
 		<module>java-book</module>
 		<module>java-junit</module>
-  </modules>
+		<module>java-boot</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.2.RELEASE</spring.version>
 		<spring.security.version>4.0.3.RELEASE</spring.security.version>
 		<spring.oauth2.version>2.0.8.RELEASE</spring.oauth2.version>
-		<mybatis.version>3.4.1</mybatis.version>
+		<!--<mybatis.version>3.4.1</mybatis.version>-->
+		<!--<mybatis.spring.version>1.3.0</mybatis.spring.version>-->
+		<mybatis.version>3.3.0</mybatis.version>
+		<mybatis.spring.version>1.2.4</mybatis.spring.version>
 		<mybatis.generator>1.3.5</mybatis.generator>
-		<mybatis.spring.version>1.3.0</mybatis.spring.version>
 		<hibernate.version>5.2.2.Final</hibernate.version>
 		<mysql.version>5.1.35</mysql.version>
 		<shiro.version>1.3.2</shiro.version>
@@ -64,7 +73,7 @@
 				<version>4.12</version>
 			</dependency>
 
-			<dependency>
+			<!-- <dependency>
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>1.2.17</version>
@@ -74,7 +83,8 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>1.7.21</version>
-			</dependency>
+			</dependency> -->
+			
 
 			<!-- jstl -->
 			<dependency>

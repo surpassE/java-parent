@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dobe.BlogMapper">
+    <select id="selectBlog" parameterType="com.sirding.mybatis.Blog" resultType="com.sirding.mybatis.Blog">
+        SELECT
+        id,
+        `name`,
+        title,
+        state
+        FROM
+        Blog
+        WHERE
+        1 = 1
+        <if test="states != null and states.size > 0">
+           AND state in
+            <foreach collection="states" item="val" open="(" close=")" separator=",">
+                #{val}
+            </foreach>
+        </if>
+        <if test="names != null and names.size > 0">
+            AND name in
+            <foreach collection="names" item="val" open="(" close=")" separator=",">
+                #{val}
+            </foreach>
+        </if>
+
+
+    </select>
+
+    <select id="selectCount" parameterType="com.sirding.mybatis.Blog" resultType="com.sirding.mybatis.Blog">
+        SELECT
+        count(*)
+        FROM
+        Blog
+        WHERE
+        1 = 1
+        <if test="states != null and states.size > 0">
+            AND state in
+            <foreach collection="states" item="val" open="(" close=")" separator=",">
+                #{val}
+            </foreach>
+        </if>
+        <if test="names != null and names.size > 0">
+            AND name in
+            <foreach collection="names" item="val" open="(" close=")" separator=",">
+                #{val}
+            </foreach>
+        </if>
+
+
+    </select>
+
+</mapper>

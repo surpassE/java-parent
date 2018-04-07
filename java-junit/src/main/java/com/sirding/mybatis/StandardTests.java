@@ -1,4 +1,4 @@
-package com.dobe;
+package com.sirding.mybatis;
 
 import org.junit.jupiter.api.*;
 

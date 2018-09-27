@@ -20,3 +20,6 @@
 [DEBUG][2017-11-01 10:22:36,520][com.sirding.redis.TestRedisLock]1
 [DEBUG][2017-11-01 10:22:53,265][com.sirding.redis.TestRedisLock]1
 [DEBUG][2017-11-03 14:54:36,216][com.sirding.redis.TestRedisLock]0
+[DEBUG][2018-06-04 15:16:18,884][com.sirding.redis.TestRedisLock]0
+[DEBUG][2018-06-11 11:23:24,830][com.sirding.redis.TestRedisLock]0
+[DEBUG][2018-06-11 12:46:45,976][com.sirding.redis.TestRedisLock]0

@@ -1,14 +1,11 @@
 package com.sirding.javase;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Optional;
-
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
+
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Test {
 
@@ -106,4 +103,23 @@ public class Test {
 		System.out.println((num/100)%10);
 	}
 	
+	@org.junit.Test
+	public void test7(){
+	    Map<String, String> map = new HashMap<>();
+	    for(int i = 0; i < 100; i++){
+	        if(i == 11 || i == 15 ){
+                System.out.println("ok");
+            }
+	        map.put("你好" + i, "aa");
+        }
+    }
+	
+    @org.junit.Test
+    public void test8(){
+	    SortedMap<String, Object> map = new TreeMap<String, Object>();
+	    map.put("aa", "hello");
+	    map.put("bb", "world");
+        SortedMap<String, Object> tailMap = ((TreeMap<String, Object>) map).tailMap("aa");
+    }
+    
 }

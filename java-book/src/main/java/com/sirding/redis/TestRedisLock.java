@@ -1,24 +1,26 @@
 package com.sirding.redis;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class TestRedisLock {
 	private static final String HOST = "192.168.1.250";	// 127.0.0.1
-	private static final Integer PORT = 6379;	// 2185
+//	private static final String HOST = "47.93.205.153";	// 127.0.0.1
+//	private static final String HOST = "127.0.0.1";	// 127.0.0.1
+//	private static final Integer PORT = 6379;	// 2185
+	private static final Integer PORT = 22121;	// 2185
 	Logger logger = Logger.getLogger(getClass());
 	public static JedisPool pool;
 	public static Jedis jedis;
@@ -37,6 +39,7 @@ public class TestRedisLock {
 				config.setMaxWaitMillis(1000);
 				//在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；  
 				config.setTestOnBorrow(true); 
+//				pool = new JedisPool(config, HOST, PORT, 1000, "yrSuper001");
 				pool = new JedisPool(config, HOST, PORT);
 				jedis = pool.getResource();
 				JedisConnectionFactory jcf = new JedisConnectionFactory(config);

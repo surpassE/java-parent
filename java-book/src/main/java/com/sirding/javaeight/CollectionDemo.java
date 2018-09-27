@@ -1,11 +1,13 @@
 package com.sirding.javaeight;
 
+import org.junit.Test;
+
 import java.util.*;
 import java.util.function.Predicate;
-import static java.util.stream.Collectors.*;
-import static java.util.Comparator.*;
 
-import org.junit.Test;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class CollectionDemo {
 
@@ -44,11 +46,17 @@ public class CollectionDemo {
 
 	@Test
 	public void test2(){
-		List<Model> list = Arrays.asList(new Model("1", 1), new Model("3", 3), new Model("2", 2));
-		list.sort((Model m1, Model m2) -> m1.getName().compareTo(m2.getName()));
+		List<Model> list = Arrays.asList(new Model("1", 1), new Model("3", 3),
+                new Model("2", 4), new Model("2", -1));
+//		list.sort((Model m1, Model m2) -> m1.getName().compareTo(m2.getName()));
 //		排序择优方法
-		list.sort(comparing(Model::getName));
+		list.sort(comparing(Model::getName).thenComparing(Model::getAge));
+		
+		
+        List<Model> result = new ArrayList<>(list);
+        result.add(0, result.remove(list.size() - 1));
 		System.out.println(list);
+		System.out.println(result);
 	}
 
 

@@ -15,7 +15,7 @@ import java.util.Map;
  * 时间工具类jdk8+
  *
  * @author zc.ding
- * @create 2018/9/13
+ * @create 2018/10/01
  */
 public interface DateUtils {
     int DAY_TIME = 86400;
@@ -34,10 +34,10 @@ public interface DateUtils {
 
     /**
      *  获取最早时间
-     *  @param date
+     *  @param date             ：日期
      *  @return java.time.Instant
-     *  @date                    ：2018/9/29
-     *  @author                  ：zc.ding@foxmail.com
+     *  @date                   ：2018/9/29
+     *  @author                 ：zc.ding@foxmail.com
      */
     static Instant getFirstTime(LocalDate date){
         return date.atTime(0, 0, 0).toInstant(ZONE_OFFSET);
@@ -45,10 +45,10 @@ public interface DateUtils {
 
     /**
      *  获取最晚时间
-     *  @param date
+     *  @param date             ：日期
      *  @return java.time.Instant
-     *  @date                    ：2018/9/29
-     *  @author                  ：zc.ding@foxmail.com
+     *  @date                   ：2018/9/29
+     *  @author                 ：zc.ding@foxmail.com
      */
     static Instant getLastTime(LocalDate date){
         return date.atTime(23, 59, 59).toInstant(ZONE_OFFSET).plusMillis(999);
@@ -56,7 +56,7 @@ public interface DateUtils {
 
     /**
      *  java.util.date -> java.time.LocalDate
-     *  @param date
+     *  @param date              ：日期
      *  @return java.time.LocalDate
      *  @date                    ：2018/9/29
      *  @author                  ：zc.ding@foxmail.com
@@ -67,7 +67,7 @@ public interface DateUtils {
 
     /**
      *  java.util.date -> java.time.LocalDate
-     *  @param date
+     *  @param date              ：日期
      *  @return java.time.LocalDateTime
      *  @date                    ：2018/9/29
      *  @author                  ：zc.ding@foxmail.com
@@ -79,8 +79,8 @@ public interface DateUtils {
     /**
     *  当前时间默认格式  yyyy-MM-dd HH:mm:ss
     *  @return java.lang.String
-    *  @Creation Date           ：2018/9/21
-    *  @Author                  ：zc.ding@foxmail.com
+    *  @date                    ：2018/9/21
+    *  @author                  ：zc.ding@foxmail.com
     */
     static String format(){
         return format(YYYY_MM_DD_HH_MM_SS);
@@ -88,10 +88,10 @@ public interface DateUtils {
     
     /**
     *  获取当前时间指定格式字符串
-    *  @param pattern
+    *  @param pattern           ：时间格式
     *  @return java.lang.String
-    *  @Creation Date           ：2018/9/21
-    *  @Author                  ：zc.ding@foxmail.com
+    *  @date                    ：2018/9/21
+    *  @author                  ：zc.ding@foxmail.com
     */
     static String format(String pattern){
         return DateTimeFormatter.ofPattern(pattern).format(LocalDateTime.now());
@@ -99,9 +99,9 @@ public interface DateUtils {
 
     /**
      *  获取指定时间默认字符串格式
-     *  @param date
+     *  @param date             ：日期
      *  @return java.lang.String
-     *  @date           ：2018/9/21
+     *  @date                   ：2018/9/21
      *  @author                  ：zc.ding@foxmail.com
      */
     static String format(Date date){
@@ -110,22 +110,56 @@ public interface DateUtils {
     
     /**
     *  获取指定时间指定格式字符串
-    *  @param date
-    *  @param pattern
+    *  @param date              ：日期
+    *  @param pattern           ：时间格式
     *  @return java.lang.String
-    *  @Creation Date           ：2018/9/21
-    *  @Author                  ：zc.ding@foxmail.com
+    *  @date                   ：2018/9/21
+    *  @author                  ：zc.ding@foxmail.com
     */
     static String format(Date date, String pattern){
         return DateTimeFormatter.ofPattern(pattern).format(toLocalDateTime(date));
     }
+
+    /**
+    *  时间戳转为日期
+    *  @param timestamp         ：时间错
+    *  @return java.util.Date
+    *  @date                    ：2018/10/3
+    *  @author                  ：zc.ding@foxmail.com
+    */
+    static Date parse(long timestamp){
+        return Date.from(Instant.ofEpochMilli(timestamp));
+    }
+
+    /**
+     *  时间戳转为日期格式字符串
+     *  @param timestamp         ：时间戳
+     *  @return java.util.Date
+     *  @date                    ：2018/10/3
+     *  @author                  ：zc.ding@foxmail.com
+     */
+    static String parseString(long timestamp){
+        return format(parse(timestamp));
+    }
+
+    /**
+     *  时间戳转为日期格式字符串
+     *  @param timestamp        ：时间戳
+     *  @param pattern          ：时间格式
+     *  @return java.util.Date
+     *  @date                    ：2018/10/3
+     *  @author                  ：zc.ding@foxmail.com
+     */
+    static String parseString(long timestamp, String pattern){
+        return format(parse(timestamp), pattern);
+    }
     
     /**
     *  字符串转日期, eg: 2000-01-01 00:00:00解析为Date类型
-    *  @param date
+    *  @param date              ：日期
     *  @return java.util.Date
-    *  @Creation Date           ：2018/9/21
-    *  @Author                  ：zc.ding@foxmail.com
+    *  @date                   ：2018/9/21
+    *  @author                  ：zc.ding@foxmail.com
     */
     static Date parse(String date){
         return parse(date, YYYY_MM_DD_HH_MM_SS);
@@ -133,8 +167,8 @@ public interface DateUtils {
     
     /**
     *  将时间转为指定pattern格式的Date数据
-    *  @param date
-    *  @param pattern
+    *  @param date              ：日期
+    *  @param pattern           ：日期格式
     *  @return java.util.Date
     *  @date Date               ：2018/9/21
     *  @author                  ：zc.ding@foxmail.com
@@ -148,10 +182,10 @@ public interface DateUtils {
      *  <p>
      *      2018-01-01 12:23:30 123-> +1天 2018-01-02 12:23:30 123
      *  </p>  
-     *  @param days
+     *  @param days             ：天数
      *  @return java.util.Date
-     *  @date                    ：2018/9/28
-     *  @author                  ：zc.ding@foxmail.com
+     *  @date                   ：2018/9/28
+     *  @author                 ：zc.ding@foxmail.com
      */
     static Date addDays(Integer days){
         return Date.from(LocalDateTime.now().plusDays(days).toInstant(ZONE_OFFSET));
@@ -162,8 +196,8 @@ public interface DateUtils {
     *  <p>
     *      2018-01-01 12:23:30 123-> +1天 2018-01-02 12:23:30 123
     *  </p>  
-    *  @param date
-    *  @param days
+    *  @param date              ：日期
+    *  @param days              ：天数
     *  @return java.util.Date
     *  @date                    ：2018/9/28
     *  @author                  ：zc.ding@foxmail.com
@@ -773,7 +807,6 @@ public interface DateUtils {
         }
         return map;
     }
-    
     
     public static void main(String[] args) {
         LocalDate localDate = LocalDate.now();

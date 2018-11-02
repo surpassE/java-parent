@@ -1,4 +1,4 @@
-package com.sirding.javaeight;
+package com.sirding.util;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -36,7 +36,7 @@ public interface DateUtils {
      *  获取最早时间
      *  @param date             ：日期
      *  @return java.time.Instant
-     *  @date                   ：2018/9/29
+     *  @since                  ：2018/9/29
      *  @author                 ：zc.ding@foxmail.com
      */
     static Instant getFirstTime(LocalDate date){
@@ -113,7 +113,7 @@ public interface DateUtils {
     *  @param date              ：日期
     *  @param pattern           ：时间格式
     *  @return java.lang.String
-    *  @date                   ：2018/9/21
+    *  @since                   ：2018/9/21
     *  @author                  ：zc.ding@foxmail.com
     */
     static String format(Date date, String pattern){
@@ -124,7 +124,7 @@ public interface DateUtils {
     *  时间戳转为日期
     *  @param timestamp         ：时间错
     *  @return java.util.Date
-    *  @date                    ：2018/10/3
+    *  @since                   ：2018/10/3
     *  @author                  ：zc.ding@foxmail.com
     */
     static Date parse(long timestamp){
@@ -135,7 +135,7 @@ public interface DateUtils {
      *  时间戳转为日期格式字符串
      *  @param timestamp         ：时间戳
      *  @return java.util.Date
-     *  @date                    ：2018/10/3
+     *  @since                   ：2018/10/3
      *  @author                  ：zc.ding@foxmail.com
      */
     static String parseString(long timestamp){
@@ -147,7 +147,7 @@ public interface DateUtils {
      *  @param timestamp        ：时间戳
      *  @param pattern          ：时间格式
      *  @return java.util.Date
-     *  @date                    ：2018/10/3
+     *  @since                   ：2018/10/3
      *  @author                  ：zc.ding@foxmail.com
      */
     static String parseString(long timestamp, String pattern){
@@ -158,7 +158,7 @@ public interface DateUtils {
     *  字符串转日期, eg: 2000-01-01 00:00:00解析为Date类型
     *  @param date              ：日期
     *  @return java.util.Date
-    *  @date                   ：2018/9/21
+    *  @since                   ：2018/9/21
     *  @author                  ：zc.ding@foxmail.com
     */
     static Date parse(String date){
@@ -170,7 +170,7 @@ public interface DateUtils {
     *  @param date              ：日期
     *  @param pattern           ：日期格式
     *  @return java.util.Date
-    *  @date Date               ：2018/9/21
+    *  @since                   ：2018/9/21
     *  @author                  ：zc.ding@foxmail.com
     */
     static Date parse(String date, String pattern){
@@ -709,25 +709,64 @@ public interface DateUtils {
     *  @param start
     *  @param end
     *  @return boolean
-    *  @date                    ：2018/10/2
+    *  @since                   ：2018/10/2
     *  @author                  ：zc.ding@foxmail.com
     */
-    static  boolean valid(Date start, Date end){
-        return Instant.now().isBefore(end.toInstant()) && Instant.now().isAfter(start.toInstant());
+    static  boolean between(Date start, Date end){
+        return between(new Date(), start, end);
     }
 
     /**
-     *  判断当前时间是否在start之后end之前
-     *  @param start
-     *  @param end
-     *  @return boolean
-     *  @date                    ：2018/10/2
-     *  @author                  ：zc.ding@foxmail.com
-     */
-    static boolean valid(String start, String end){
-        return valid(parse(start), parse(end));
+    *  判断当前时间是否在start之后end之前
+    *  @param start
+    *  @param end
+    *  @param between   时间是否在包含=
+    *  @return boolean
+    *  @since                   ：2018/11/2
+    *  @author                  ：zc.ding@foxmail.com
+    */
+    static  boolean between(Date start, Date end, Between between){
+        return between(new Date(), start, end, between);
     }
     
+    /**
+    *  判断时间是否在start和end时间之间  start <= date <= end 
+    *  @param date
+    *  @param start
+    *  @param end
+    *  @return boolean
+    *  @since                   ：2018/11/2
+    *  @author                  ：zc.ding@foxmail.com
+    */
+    static boolean between(Date date, Date start, Date end){
+        return date.compareTo(end) <= 0 && date.compareTo(start) >= 0;
+    }
+    
+    /**
+    *  判断时间是否在start和end时间之间 
+    *  @param date
+    *  @param start
+    *  @param end
+    *  @param between   时间是否在包含=
+    *  @return boolean
+    *  @since                   ：2018/11/2
+    *  @author                  ：zc.ding@foxmail.com
+    */
+    static boolean between(Date date, Date start, Date end, Between between){
+        switch (between){
+            case NO:
+                return date.compareTo(end) < 0 && date.compareTo(start) > 0;
+            case EQ:
+                return date.compareTo(end) <= 0 && date.compareTo(start) >= 0;
+            case END_EQ:
+                return date.compareTo(end) <= 0 && date.compareTo(start) > 0;
+            case START_EQ:
+                return date.compareTo(end) < 0 && date.compareTo(start) >= 0;
+            default:
+                return false;
+        }    
+    }
+
     /**
     *  获取当前时间是第几季度
     *  @return int
@@ -735,15 +774,15 @@ public interface DateUtils {
     *  @author                  ：zc.ding@foxmail.com
     */
     static int getQuarter(){
-        Integer month = LocalDate.now().getMonthValue();
+        int month = LocalDate.now().getMonthValue();
         return (month / 3) + ((month % 3) > 0 ? 1 : 0);
     }
     
     /**
-    *  计算周期是时间  {@link com.sirding.javaeight.PeriodEnum}
+    *  计算周期是时间  {@link PeriodEnum}
     *  @param periodEnum        : 周期类型
     *  @return java.util.Map<java.lang.String,java.util.Date>
-    *  @date                    ：2018/10/2
+    *  @since                   ：2018/10/2
     *  @author                  ：zc.ding@foxmail.com
     */
     static Map<String, Date> getPeriod(PeriodEnum periodEnum){
@@ -751,7 +790,7 @@ public interface DateUtils {
         Instant instant = Instant.now();
         LocalDate localDate = LocalDate.from(instant.atOffset(ZONE_OFFSET));
         Date date = Date.from(instant);
-        int mod = 0;
+        int mod;
         switch (periodEnum){
             case LATEST_1_DAYS:
                 map.put(START, addDaysFirst(date, -1));
@@ -806,6 +845,113 @@ public interface DateUtils {
             default:break;
         }
         return map;
+    }
+
+    /**
+     *  时间周期枚举
+     *  @since                   ：2018/10/2
+     *  @author                  ：zc.ding@foxmail.com
+     */
+    enum PeriodEnum {
+        /**
+         * 昨天（最近1天）
+         */
+        LATEST_1_DAYS(1),
+        /**
+         * 最近3天
+         */
+        LATEST_3_DAYS(2),
+        /**
+         * 最近7天
+         */
+        LATEST_7_DAYS(3),
+        /**
+         * 最近30天
+         */
+        LATEST_30_DAYS(4),
+        /**
+         * 当前周
+         */
+        CURR_WEEK(11),
+        /**
+         * 上一周
+         */
+        PRE_WEEK(12),
+        /**
+         * 当天月
+         */
+        CURR_MONTH(21),
+        /**
+         * 上一月
+         */
+        PRE_MONTH(22),
+        /**
+         * 当前季度
+         */
+        CURR_QUARTER(31),
+        /**
+         * 上一季度
+         */
+        PRE_QUARTER(32),
+        /**
+         * 本年
+         */
+        CURR_YEAR(100);
+
+        private int type;
+
+        PeriodEnum(int type){
+            this.type = type;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        /**
+         *  获取时间周期类型
+         *  @Method_Name             ：getPeriodEnum
+         *  @param period
+         *  @return com.yirun.framework.core.enums.PeriodEnum
+         *  @date                    ：2018/10/2
+         *  @author                  ：zc.ding@foxmail.com
+         */
+        public static PeriodEnum getPeriodEnum(Integer period){
+            for(PeriodEnum pe : PeriodEnum.values()){
+                if(period.equals(pe.getType())){
+                    return pe;
+                }
+            }
+            return PeriodEnum.LATEST_1_DAYS;
+        }
+    }
+    
+    /**
+    *  between相等枚举类
+    *  @since                   ：2018/8/10
+    *  @author                  ：zc.ding@foxmail.com
+    */
+    enum Between{
+        /**
+        * !=start && != end
+        */
+        NO,
+        /**
+        * ==start && == end
+        */
+        EQ,
+        /**
+        * == start && != end
+        */
+        START_EQ,
+        /**
+        * != start && == end
+        */
+        END_EQ;
     }
     
     public static void main(String[] args) {

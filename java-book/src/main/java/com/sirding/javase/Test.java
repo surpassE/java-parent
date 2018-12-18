@@ -122,4 +122,10 @@ public class Test {
         SortedMap<String, Object> tailMap = ((TreeMap<String, Object>) map).tailMap("aa");
     }
     
+    @org.junit.Test
+    public void test9(){
+	    Integer a = null;
+	    Integer b = 100;
+        System.out.println(Objects.equals(a, b));
+    }
 }

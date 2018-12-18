@@ -1,14 +1,16 @@
 package com.sirding;
 
+import com.sirding.javaeight.DateUtils;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Demo {
 
 	public static void main(String[] args) throws ParseException {
-		System.out.println(DateUtil.convertDateToString(new Date()));
-		System.out.println(DateUtil.getDateDownOnMonth("2016-06-15"));
 		Integer a = new Integer(1);
 		Integer b = new Integer(1);
 		System.out.println((a == b));
@@ -29,6 +31,29 @@ public class Demo {
         System.out.println(String.format(m, 123));
 
         System.out.println(System.currentTimeMillis());
+
+        System.out.println("计算时间");
+        //        计算时间
+        long time = System.currentTimeMillis();
+        Date start = DateUtils.parse("2018-10-30 11:11:00 000", DateUtils.YYYY_MM_DD_HH_MM_SS_SSS);
+        Date end = DateUtils.parse("2018-10-30 17:21:59 999", DateUtils.YYYY_MM_DD_HH_MM_SS_SSS);
+        Date curr = DateUtils.parse("2018-11-11 09:22:59 123", DateUtils.YYYY_MM_DD_HH_MM_SS_SSS);
+        Date def = DateUtils.parse("0000-00-00 00:00:01", DateUtils.YYYY_MM_DD_HH_MM_SS_SSS);
+        Calendar cal = new GregorianCalendar();
+        String startTimeTemplate = "2018-11-11 m:11:00 000";
+        String endTimeTemplate = "2018-11-11 m:21:59 999";
+        //2018-11-11 09:11:00 000
+        long startTime = 1541898660000L;
+//        2018-11-11 23:21:59 999
+        long endTime = 1541949719999L;
+        cal.setTime(curr);
+        System.out.println(start.getTime());
+        System.out.println(end.getTime());
+        System.out.println(def.getTime());
+        System.out.println(cal.get(Calendar.HOUR_OF_DAY));
+        System.out.println("耗时：" + (System.currentTimeMillis() - time));
+
+        System.out.println(DateUtils.parseString(1540883323000L, DateUtils.YYYY_MM_DD_HH_MM_SS_SSS));
     }
 	
 	public static void getStr() {

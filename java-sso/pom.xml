@@ -3,9 +3,10 @@
 	<parent>
 		<groupId>com.sirding</groupId>
 		<artifactId>java-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>java-sso</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>java-sso</name>
 	<description>java sso</description>

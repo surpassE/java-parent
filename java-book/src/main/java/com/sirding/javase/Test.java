@@ -5,6 +5,7 @@ import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Test {
@@ -127,5 +128,21 @@ public class Test {
 	    Integer a = null;
 	    Integer b = 100;
         System.out.println(Objects.equals(a, b));
+    }
+    
+    @org.junit.Test
+    public void test10(){
+	    List<BigDecimal> list = Collections.emptyList();
+        BigDecimal sum = BigDecimal.valueOf(list.stream().mapToDouble(o -> o.doubleValue()).sum());
+        System.out.println(sum);
+    }
+    
+    @org.junit.Test
+    public void test11(){
+//        String reg = "phpRedisAdmin/(.+\\.(jpg|gif|png|js|css]))";
+        String reg = ".*[\\.](css|js)";
+//        String reg = "/.*\\.(css|js)$";
+        String msg = "phpRedisAdmin/css/index.css?v1-1-1";
+        System.out.println(reg.matches(reg));
     }
 }

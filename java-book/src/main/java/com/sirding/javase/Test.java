@@ -145,4 +145,23 @@ public class Test {
         String msg = "phpRedisAdmin/css/index.css?v1-1-1";
         System.out.println(reg.matches(reg));
     }
+    
+    @org.junit.Test
+    public void testInteger(){
+	    Integer a1 = 1;
+	    Integer a2 = 1;
+        System.out.println("a1 == a2 : " + (a1 == a2));
+	    Integer b1 = 128;
+	    Integer b2 = 128;
+        System.out.println("b1 == b2 : " + (b1 == b2));
+	    int c1 = 500;
+        Integer c2 = new Integer(500);
+        System.out.println("c1 == c2 : " + (c1 == c2));
+
+        Integer d1 = 1;
+        Integer d2 = new Integer(1);
+        System.out.println("d1 == d2 : " + (d1 == d2));
+        Integer.valueOf(100);
+        
+    }
 }

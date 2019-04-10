@@ -17,6 +17,7 @@ import redis.clients.jedis.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * TODO
@@ -148,24 +149,9 @@ public class TestRedisCluster {
             result.put(key, pipeline.get(key));
         }
         pipeline.sync();
-
-        
         for (String key : result.keySet()) {
             System.out.println(result.get(key).get());
         }
-//        List<String> dstList = new ArrayList<>();
-//        for (int i = 0; i <= 1000   ; i++) {
-//            dstList.add(jedisCluster.get(prefix + i));
-//        }
-//
-//        for (int i = 0; i <= 1000   ; i++) {
-//            if(!dstList.get(i).equals(preList.get(i).get())){
-//                System.out.println("error:" + i);
-//                return;
-//            }else{
-//                System.out.println("ok");
-//            }
-//        }
         pipeline.close();
         System.out.println("time: " + (System.currentTimeMillis() - startTime));
     }
@@ -194,6 +180,12 @@ public class TestRedisCluster {
         
         Thread.sleep(20000);
         System.out.println("ok");
+    }
+    
+    @Test
+    public void test11(){
+        List<String> list = new ArrayList<>();
+        System.out.println(list.stream().collect(Collectors.toMap(a->a, b->b)));
     }
     
 }

@@ -1,5 +1,11 @@
 package com.sirding.javase;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
@@ -164,4 +170,29 @@ public class Test {
         Integer.valueOf(100);
         
     }
+
+    @org.junit.Test
+	public void testSpel() {
+		User user = new User();
+		user.setName("test");
+		user.setAge(15);
+
+//		StandardEvaluationContext context = new StandardEvaluationContext(user);
+
+		ExpressionParser expressionParser = new SpelExpressionParser();
+		EvaluationContext context = new StandardEvaluationContext();
+		context.setVariable("user", user);
+		expressionParser.parseExpression("#user.name='aaa'");
+		System.out.println(user.getName());
+
+	}
+
+}
+
+@Data
+@NoArgsConstructor
+class User{
+	private String name;
+	private Integer age;
+
 }

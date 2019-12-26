@@ -1,9 +1,13 @@
 package com.sirding.easyexcel;
 
 import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.metadata.BaseRowModel;
+import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import org.junit.Test;
 
 import java.io.*;
 import java.util.*;
@@ -11,14 +15,53 @@ import java.util.function.Consumer;
 
 public class EasyExcelTest {
 
-    private static final String FILE_PREFIX = "D:\\项目需求\\配置中心\\数据清洗\\";
-    public static void main(String[] args) {
+//    private static final String FILE_PREFIX = "D:\\项目需求\\企业中心2.0(配置中心)\\数据清洗\\";
+    private static final String FILE_PREFIX = "D:\\项目需求\\企业中心2.0(配置中心)\\二期工作\\上线数据\\";
+    private static final String XS_FILE_PREFIX = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\数据同步\\14号同步\\异常处理方案\\";
+    public static void main(String[] args) throws Exception {
 //        getAuth();
 //        getSystem();
 //        getProduct();
-        getClientProduct();
+//        getClientProduct();
 //        getProductFromCfe();
 //        compareProduct();
+//        getDic();
+
+//        获得用户编码去重结果
+//        deWeight();
+
+        // 获得新通路企业信息更新脚本
+        getXinTongLuList();
+        System.out.println("okok");
+
+
+    }
+
+    public static void deWeight(){
+        File file = new File(FILE_PREFIX + "审核信息-临时.xlsx");
+        File dstFile = new File(FILE_PREFIX + "审核信息-临时0902.sql");
+        readFile(file, (List<String> l) -> {
+            try {
+                FileOutputStream fos = new FileOutputStream(dstFile, true);
+                OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+                StringBuilder sb = new StringBuilder();
+                sb.append("INSERT INTO user_product(user_code, product_code, status) VALUE('");
+                sb.append(l.get(0)).append("','','");
+                String status = l.get(1);
+                if ("审核不通过".equals(status) || "审核驳回".equals(status)) {
+                    status = "20";
+                } else if ("审核通过".equals(status) || "正常".equals(status)) {
+                    status = "10";
+                }else {
+                    status = "30";
+                }
+                sb.append(status).append("');\n");
+                osw.write(sb.toString());
+                osw.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
@@ -122,8 +165,8 @@ public class EasyExcelTest {
      * 解析客户产品信息
      */
     public static void getClientProduct() {
-        File file = new File(FILE_PREFIX + "导出企业中心客户产品关系2019-08-02 10_13_48.xlsx");
-        File dstFile = new File(FILE_PREFIX + "client_product_190802.sql");
+        File file = new File(FILE_PREFIX + "导出企业中心客户产品关系2019-08-08 20_53_09.xlsx");
+        File dstFile = new File(FILE_PREFIX + "client_product_190808.sql");
 //        StringBuilder sb = new StringBuilder("INSERT INTO cfg_client_product(product_code, " +
 //                "user_code, user_name, type, msg, created_date, modified_date, yn, user_type, status, flow_status) VALUE");
         readFile(file, (List<String> l) -> {
@@ -131,9 +174,13 @@ public class EasyExcelTest {
                 FileOutputStream fos = new FileOutputStream(dstFile, true);
                 OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
                 StringBuilder sb = new StringBuilder();
-                sb.append("('");
+                sb.append("INSERT INTO cfg_client_product(app_code, product_code, product_name, user_code, user_name," +
+                        " type, msg, created_date, modified_date, yn, user_type, status, flow_status) VALUE('");
+                sb.append(l.get(0) + l.get(1)).append("','");
                 // 产品编码
                 sb.append(l.get(0)).append("','");
+                // 产品名称
+                sb.append(l.get(8)).append("','");
                 // 用户编码
                 sb.append(l.get(1)).append("','");
                 // 用户名称
@@ -149,27 +196,19 @@ public class EasyExcelTest {
                 // yn
                 sb.append(l.get(4));
                 // 用户类型， 状态， 流程状态
-                sb.append(", 2, 1, 2),\n");
+                sb.append(", 2, 1, 2);\n");
                 osw.write(sb.toString());
                 osw.flush();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        // 数据量大 导致 无法全量输出
-//        List<List<String>> list = new ArrayList<>();
-//        StringBuilder sb = new StringBuilder();
-//        list.forEach(l -> {
-//            sb.append("('").append(l.get(0)).append("','").append(l.get(1)).append("','").append(l.get(2)).append("'," +
-//                    " '").append(l.get(3)).append("', '").append("null".equals(l.get(5)) ? "" : l.get(5)).append("','").append(l.get(6)).append("'," +
-//                    "'").append(l.get(7)).append("',").append(l.get(4)).append(", 2, 1, 2),\n");
-//        });
-//        System.out.println(sb.toString());
     }
 
 
     public static void getAuth() {
-        File file = new File(FILE_PREFIX + "前置系统访问权限.xlsx");
+//        File file = new File(FILE_PREFIX + "前置系统访问权限.xlsx");
+        File file = new File(FILE_PREFIX + "前置系统访问权限190806.xlsx");
         List<List<String>> list = new ArrayList<>();
         readFile(file, list);
         StringBuilder sb = new StringBuilder();
@@ -196,9 +235,33 @@ public class EasyExcelTest {
         System.out.println(sb.toString());
     }
 
+    public static void getDic() {
+        File file = new File(FILE_PREFIX + "导出企业中心字典表.xlsx");
+        File dstFile = new File(FILE_PREFIX + "dict.sql");
+        readFile(file, (List<String> l) -> {
+            try {
+                FileOutputStream fos = new FileOutputStream(dstFile, true);
+                OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+                StringBuilder sb = new StringBuilder();
+                sb.append("INSERT INTO dict (code_no,code_name,code_key,code_desc,remark,parent_no,edit_mode,sort_no,yn) value('");
+                sb.append(l.get(0)).append("','").append(l.get(1)).append("','").append(l.get(2)).append("','");
+                sb.append(l.get(3)).append("','");
+                sb.append(Objects.isNull(l.get(4)) || l.get(4).length()<=0 || "null".equals(l.get(4))? "" : l.get(4)).append("','");
+                sb.append(Objects.isNull(l.get(5)) || l.get(5).length()<=0 || "null".equals(l.get(5))? "" : l.get(5)).append("','");
+                sb.append(l.get(6)).append("',").append(l.get(7)).append(",");
+                sb.append(Objects.equals("true", l.get(8)) ? 1: 0).append(");\n");
+                osw.write(sb.toString());
+                osw.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public static void getSystem(){
         Map<String, String> map = new HashMap<>();
-        File file = new File(FILE_PREFIX + "资金路由系统信息.xlsx");
+//        File file = new File(FILE_PREFIX + "资金路由系统信息.xlsx");
+        File file = new File(FILE_PREFIX + "资金路由系统190806.xlsx");
         List<List<String>> list = new ArrayList<>();
         readFile(file, list);
         list.forEach(l -> {
@@ -217,7 +280,8 @@ public class EasyExcelTest {
             map.put(l.get(1), sb.toString());
         });
 
-        file = new File(FILE_PREFIX + "台账系统列表.xlsx");
+//        file = new File(FILE_PREFIX + "台账系统列表.xlsx");
+        file = new File(FILE_PREFIX + "台账系统列表190806.xlsx");
         list = new ArrayList<>();
         readFile(file, list);
         list.forEach(l -> {
@@ -264,6 +328,31 @@ public class EasyExcelTest {
         }
     }
 
+    /**
+     * 需要写入的Excel，有模型映射关系
+     *
+     * @param file  需要写入的Excel，格式为xlsx
+     * @param list 写入Excel中的所有数据，继承于BaseRowModel
+     */
+    public static void writeExcel(final File file, List<? extends BaseRowModel> list) throws Exception {
+        OutputStream out = new FileOutputStream(file);
+        try {
+            ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX);
+            //写第一个sheet,  有模型映射关系
+            Class t = list.get(0).getClass();
+            Sheet sheet = new Sheet(1, 0, t);
+            writer.write(list, sheet);
+            writer.finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static class ExcelListener extends AnalysisEventListener<List<String>> {
         private List<List<String>> data = new ArrayList<>();
@@ -291,5 +380,53 @@ public class EasyExcelTest {
         public List<List<String>> getData() {
             return data;
         }
+    }
+
+    public static void getXinTongLuList() throws Exception {
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\数据同步\\1202-1203同步\\cms-audit-record20191205111200.xls");
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\数据同步\\1202-1203同步\\新通路-企业中心1.0-历史数据.xlsx");
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\数据同步\\1202-1203同步\\京营平台-导出同步失败的信息2019-12-09 17_21_35.xlsx");
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\新通路\\确定数据.xlsx");
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\新通路\\京营平台-导出同步失败的信息2019-12-24 11_02_22.xlsx");
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\新通路\\新通路低频用户.xlsx");
+//        File file = new File("D:\\test\\system\\system-auth.xlsx");
+        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\smb-jypt-export.xlsx");
+        File dstFile = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\数据同步\\1202-1203同步\\xtl_update_rollback.sql");
+        File dfile = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\结果.xlsx");
+        StringBuffer userCodeList = new StringBuffer();
+
+        List<ExcelData> list = new ArrayList<>();
+        readFile(file, (List<String> l) -> {
+            try {
+                FileOutputStream fos = new FileOutputStream(dstFile, true);
+                OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+                StringBuilder sb = new StringBuilder();
+                sb.append("update cfe_company_info set lic_no='");
+                String licNo = l.get(1);
+                sb.append(licNo);
+                sb.append("' where company_code = '");
+                sb.append(l.get(0));
+                sb.append("';\n");
+//                osw.write(sb.toString());
+//                osw.flush();
+
+//                userCodeList.append("('" + l.get(0) + "','" + l.get(1) +  "','" + l.get(2) + "','" + l.get(3) +
+//                        "','"+l.get(4)+"','"+l.get(5)+"',1,2,1,1),");
+
+                userCodeList.append("'" + l.get(1) + "',");
+                list.add(list.get(1));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+//        writeExcel(dfile, list);
+        System.out.println("用户编码================");
+        System.out.println(userCodeList.toString());
+    }
+
+    @Test
+    public void startPrint() throws Exception{
+        getXinTongLuList();
     }
 }

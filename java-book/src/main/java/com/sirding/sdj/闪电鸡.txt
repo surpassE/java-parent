@@ -1,0 +1,252 @@
+================================================================================================
+查询所有状态
+=================================================================================================
+	GET /v6/earth/index?state=1&tab=1 HTTP/1.1
+Host	ios-api.shandianji.cn
+User-Agent	shandianji/4.2.1 (com.sdj.shandianji; build:2; iOS 13.3.0) Alamofire/4.8.2
+Accept-Encoding	gzip;q=1.0, compress;q=0.5
+x-token	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImV5SnBkaUk2SWxaeVVHSXllbkUxUjFCc2JHaDZXVmhKT0ZkMGMzYzlQU0lzSW5aaGJIVmxJam9pVUUxamJUbDRURzFsZEZVd1ZWTm9NbU1ySzFKMVp6MDlJaXdpYldGaklqb2laRGt6WVRVMk56WTBZakF5WldZMFltSTFNRGhqWkdRME4yUmlabVJqTW1aaU1qUm1Zak0yTXpkak56UTJOR1V5TkRjell6TTJOakUwWW1FMk5UWXlaaUo5In0.eyJpc3MiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJhdWQiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJqdGkiOiJleUpwZGlJNklsWnlVR0l5ZW5FMVIxQnNiR2g2V1ZoSk9GZDBjM2M5UFNJc0luWmhiSFZsSWpvaVVFMWpiVGw0VEcxbGRGVXdWVk5vTW1NcksxSjFaejA5SWl3aWJXRmpJam9pWkRrellUVTJOelkwWWpBeVpXWTBZbUkxTURoalpHUTBOMlJpWm1Sak1tWmlNalJtWWpNMk16ZGpOelEyTkdVeU5EY3pZek0yTmpFMFltRTJOVFl5WmlKOSIsImlhdCI6MTU3OTIyMzM0OSwibmJmIjoxNTc5MjIzMzQ5LCJleHAiOjE1ODE4MTUzNDl9.z6cUjjY_CmC6C0MocrAIN4iehCTzsjUIRENnAOhQgcE
+Accept	*/*
+Connection	keep-alive
+device	iOS
+Accept-Language	zh-Hans-CN;q=1.0
+Authorization	sdj123456{|}2d2b97888b9f4ec1e9fd9223f882c909
+accesstoken	1902d9c03cc748f72f3c2cebf4326f23a36538f3
+version_name	4.2.1
+
+
+{
+	"code": 0,
+	"msg": "success",
+	"data": {
+		"popNotice": 0,
+		"buildNotice": 0,
+		"wonderNotice": 0,
+		"civNotice": 0,
+		"leagueNotice": 0,
+		"buildingSpeedMulti": 1,
+		"buildingSpeedTime": 0,
+		"food": 1046472,
+		"wood": 5206401,
+		"land": 20115954,
+		"house": 429200,
+		"houseNum": 110100,
+		"foodStoreNum": 20574,
+		"woodStoreNum": 26032,
+		"wonderNumber": 0,
+		"foodCeiling": 4084801,
+		"woodCeiling": 5206401,
+		"popCeiling": 550500,
+		"population": 121300,
+		"popUnused": 0,
+		"popFood": 50738,
+		"popWood": 5818,
+		"popLand": 32967,
+		"popWonder": 31777,
+		"foodRate": -1054.1,
+		"woodRate": 3454.8,
+		"landRate": -91.7,
+		"foodTmpRate": 0,
+		"woodTmpRate": 2,
+		"landTmpRate": 0,
+		"canCreateHumanNum": 848,
+		"unitCreateNeedFood": 1233,
+		"createsHumanState": 0,
+		"createsHumanNum": 0,
+		"createsHumanNeedTime": 0,
+		"createsHumanBtnState": 0,
+		"createsHumanAdKey": "",
+		"unitBuildHouseIncrCeiling": 5,
+		"unitBuildFoodStoreIncrCeiling": 200,
+		"unitBuildWoodStoreIncrCeiling": 200,
+		"unitBuildHouseNeedWood": 20,
+		"unitBuildFoodStoreNeedWood": 100,
+		"unitBuildWoodStoreNeedWood": 100,
+		"buildHouseState": 1,
+		"buildHouseNum": 10000,
+		"buildHouseNeedTime": 46913,
+		"buildHouseBtnState": 1,
+		"buildHouseAdKey": "finishedBuildHouse",
+		"buildHouseProgress": 12,
+		"buildFoodStoreState": 1,
+		"buildFoodStoreNum": 10000,
+		"buildFoodStoreNeedTime": 37964,
+		"buildFoodStoreAdKey": "finishedBuildFoodStore",
+		"buildFoodStoreBtnState": 1,
+		"buildFoodStoreProgress": 22,
+		"buildWoodStoreState": 1,
+		"buildWoodStoreNum": 10000,
+		"buildWoodStoreNeedTime": 37966,
+		"buildWoodStoreAdKey": "finishedBuildWoodStore",
+		"buildWoodStoreBtnState": 1,
+		"buildWoodStoreProgress": 22,
+		"wonderBuildState": 1,
+		"wonderBuildProgress": "0.24178681%",
+		"showClickFood": 0,
+		"clickUnitStep": 20,
+		"showMsg": "",
+		"showWonderMsg": "",
+		"offlineAdKey": "doubleOfflineIncrement",
+		"tmpBuffBuild": {
+			"adKey": "multiBuildingByThreeHours",
+			"title": "获取3小时 建造速度x2",
+			"state": 1,
+			"buffTime": 0,
+			"speedMulti": 2,
+			"speedTimeLength": 3,
+			"buffType": 4
+		},
+		"tmpBuffWonder": {
+			"adKey": "multiBuildingWonderByThreeHours",
+			"title": "加速3小时",
+			"state": 1,
+			"buffTime": 0,
+			"speedMulti": 2,
+			"speedTimeLength": 3,
+			"buffType": 5
+		}
+	}
+}
+
+
+
+================================================================================================
+生产10个人
+=================================================================================================
+POST /v6/earth/createdPopulation HTTP/1.1
+Host	ios-api.shandianji.cn
+version_name	4.2.1
+Accept	*/*
+Authorization	sdj123456{|}2d2b97888b9f4ec1e9fd9223f882c909
+x-token	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImV5SnBkaUk2SWxaeVVHSXllbkUxUjFCc2JHaDZXVmhKT0ZkMGMzYzlQU0lzSW5aaGJIVmxJam9pVUUxamJUbDRURzFsZEZVd1ZWTm9NbU1ySzFKMVp6MDlJaXdpYldGaklqb2laRGt6WVRVMk56WTBZakF5WldZMFltSTFNRGhqWkdRME4yUmlabVJqTW1aaU1qUm1Zak0yTXpkak56UTJOR1V5TkRjell6TTJOakUwWW1FMk5UWXlaaUo5In0.eyJpc3MiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJhdWQiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJqdGkiOiJleUpwZGlJNklsWnlVR0l5ZW5FMVIxQnNiR2g2V1ZoSk9GZDBjM2M5UFNJc0luWmhiSFZsSWpvaVVFMWpiVGw0VEcxbGRGVXdWVk5vTW1NcksxSjFaejA5SWl3aWJXRmpJam9pWkRrellUVTJOelkwWWpBeVpXWTBZbUkxTURoalpHUTBOMlJpWm1Sak1tWmlNalJtWWpNMk16ZGpOelEyTkdVeU5EY3pZek0yTmpFMFltRTJOVFl5WmlKOSIsImlhdCI6MTU3OTIyMzM0OSwibmJmIjoxNTc5MjIzMzQ5LCJleHAiOjE1ODE4MTUzNDl9.z6cUjjY_CmC6C0MocrAIN4iehCTzsjUIRENnAOhQgcE
+Accept-Encoding	gzip;q=1.0, compress;q=0.5
+Accept-Language	zh-Hans-CN;q=1.0
+accesstoken	1902d9c03cc748f72f3c2cebf4326f23a36538f3
+Content-Length	9
+User-Agent	shandianji/4.2.1 (com.sdj.shandianji; build:2; iOS 13.3.0) Alamofire/4.8.2
+Connection	keep-alive
+Content-Type	application/x-www-form-urlencoded; charset=utf-8
+device	iOS
+
+
+number=10
+
+{
+	"code": 0,
+	"msg": "success",
+	"data": {
+		"population": "121300",
+		"house": 429221,
+		"popUnused": "0",
+		"needTime": 6,
+		"state": 1,
+		"adKey": "",
+		"createsHumanNum": 10
+	}
+}
+
+
+
+================================================================================================
+土地资源
+=================================================================================================
+GET /v6/earth/resources HTTP/1.1
+Host: ios-api.shandianji.cn
+User-Agent: shandianji/4.2.1 (com.sdj.shandianji; build:2; iOS 13.3.0) Alamofire/4.8.2
+Accept-Encoding: gzip;q=1.0, compress;q=0.5
+x-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImV5SnBkaUk2SWxaeVVHSXllbkUxUjFCc2JHaDZXVmhKT0ZkMGMzYzlQU0lzSW5aaGJIVmxJam9pVUUxamJUbDRURzFsZEZVd1ZWTm9NbU1ySzFKMVp6MDlJaXdpYldGaklqb2laRGt6WVRVMk56WTBZakF5WldZMFltSTFNRGhqWkdRME4yUmlabVJqTW1aaU1qUm1Zak0yTXpkak56UTJOR1V5TkRjell6TTJOakUwWW1FMk5UWXlaaUo5In0.eyJpc3MiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJhdWQiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJqdGkiOiJleUpwZGlJNklsWnlVR0l5ZW5FMVIxQnNiR2g2V1ZoSk9GZDBjM2M5UFNJc0luWmhiSFZsSWpvaVVFMWpiVGw0VEcxbGRGVXdWVk5vTW1NcksxSjFaejA5SWl3aWJXRmpJam9pWkRrellUVTJOelkwWWpBeVpXWTBZbUkxTURoalpHUTBOMlJpWm1Sak1tWmlNalJtWWpNMk16ZGpOelEyTkdVeU5EY3pZek0yTmpFMFltRTJOVFl5WmlKOSIsImlhdCI6MTU3OTIyMzM0OSwibmJmIjoxNTc5MjIzMzQ5LCJleHAiOjE1ODE4MTUzNDl9.z6cUjjY_CmC6C0MocrAIN4iehCTzsjUIRENnAOhQgcE
+Accept: */*
+Connection: keep-alive
+device: iOS
+Accept-Language: zh-Hans-CN;q=1.0
+accesstoken: 1902d9c03cc748f72f3c2cebf4326f23a36538f3
+Authorization: sdj123456{|}2d2b97888b9f4ec1e9fd9223f882c909
+version_name: 4.2.1
+
+
+
+{"code":0,"msg":"success","data":{"totalAmount":"200385.945元","wonders":{"num":"0","earnings":"今日每个地球奇迹分红7.704元","desc":"创建出世界奇迹，即可每日均分新产生地球资源的20%"},"food":{"percent":"94.1386%","desc":"当前地球的食物被采集完时，地球会被重置，重置奖励：地球资源的20%均分给当前存活的人口完整保留用户已建成的文明、文明创建进度以及20%的人口、食物、水等资源"}}}
+
+
+================================================================================================
+打猎+10人
+=================================================================================================
+POST /v6/earth/allotPopulation HTTP/1.1
+Host: ios-api.shandianji.cn
+version_name: 4.2.1
+Accept: */*
+Authorization: sdj123456{|}2d2b97888b9f4ec1e9fd9223f882c909
+x-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImV5SnBkaUk2SWxaeVVHSXllbkUxUjFCc2JHaDZXVmhKT0ZkMGMzYzlQU0lzSW5aaGJIVmxJam9pVUUxamJUbDRURzFsZEZVd1ZWTm9NbU1ySzFKMVp6MDlJaXdpYldGaklqb2laRGt6WVRVMk56WTBZakF5WldZMFltSTFNRGhqWkdRME4yUmlabVJqTW1aaU1qUm1Zak0yTXpkak56UTJOR1V5TkRjell6TTJOakUwWW1FMk5UWXlaaUo5In0.eyJpc3MiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJhdWQiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJqdGkiOiJleUpwZGlJNklsWnlVR0l5ZW5FMVIxQnNiR2g2V1ZoSk9GZDBjM2M5UFNJc0luWmhiSFZsSWpvaVVFMWpiVGw0VEcxbGRGVXdWVk5vTW1NcksxSjFaejA5SWl3aWJXRmpJam9pWkRrellUVTJOelkwWWpBeVpXWTBZbUkxTURoalpHUTBOMlJpWm1Sak1tWmlNalJtWWpNMk16ZGpOelEyTkdVeU5EY3pZek0yTmpFMFltRTJOVFl5WmlKOSIsImlhdCI6MTU3OTIyMzM0OSwibmJmIjoxNTc5MjIzMzQ5LCJleHAiOjE1ODE4MTUzNDl9.z6cUjjY_CmC6C0MocrAIN4iehCTzsjUIRENnAOhQgcE
+Accept-Encoding: gzip;q=1.0, compress;q=0.5
+Accept-Language: zh-Hans-CN;q=1.0
+accesstoken: 1902d9c03cc748f72f3c2cebf4326f23a36538f3
+Content-Length: 10
+User-Agent: shandianji/4.2.1 (com.sdj.shandianji; build:2; iOS 13.3.0) Alamofire/4.8.2
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+device: iOS
+
+popFood=10
+
+
+{"code":0,"msg":"success","data":{"popFood":50748,"popUnused":0}}
+
+
+
+
+
+================================================================================================
+加减人
+=================================================================================================
+POST /v6/earth/allotPopulation HTTP/1.1
+Host: ios-api.shandianji.cn
+version_name: 4.2.1
+Accept: */*
+Authorization: sdj123456{|}2d2b97888b9f4ec1e9fd9223f882c909
+x-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImV5SnBkaUk2SWxaeVVHSXllbkUxUjFCc2JHaDZXVmhKT0ZkMGMzYzlQU0lzSW5aaGJIVmxJam9pVUUxamJUbDRURzFsZEZVd1ZWTm9NbU1ySzFKMVp6MDlJaXdpYldGaklqb2laRGt6WVRVMk56WTBZakF5WldZMFltSTFNRGhqWkdRME4yUmlabVJqTW1aaU1qUm1Zak0yTXpkak56UTJOR1V5TkRjell6TTJOakUwWW1FMk5UWXlaaUo5In0.eyJpc3MiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJhdWQiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJqdGkiOiJleUpwZGlJNklsWnlVR0l5ZW5FMVIxQnNiR2g2V1ZoSk9GZDBjM2M5UFNJc0luWmhiSFZsSWpvaVVFMWpiVGw0VEcxbGRGVXdWVk5vTW1NcksxSjFaejA5SWl3aWJXRmpJam9pWkRrellUVTJOelkwWWpBeVpXWTBZbUkxTURoalpHUTBOMlJpWm1Sak1tWmlNalJtWWpNMk16ZGpOelEyTkdVeU5EY3pZek0yTmpFMFltRTJOVFl5WmlKOSIsImlhdCI6MTU3OTIyMzM0OSwibmJmIjoxNTc5MjIzMzQ5LCJleHAiOjE1ODE4MTUzNDl9.z6cUjjY_CmC6C0MocrAIN4iehCTzsjUIRENnAOhQgcE
+Accept-Encoding: gzip;q=1.0, compress;q=0.5
+Accept-Language: zh-Hans-CN;q=1.0
+accesstoken: 1902d9c03cc748f72f3c2cebf4326f23a36538f3
+Content-Length: 11
+User-Agent: shandianji/4.2.1 (com.sdj.shandianji; build:2; iOS 13.3.0) Alamofire/4.8.2
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+device: iOS
+
+popFood=-10  食物
+popWood=-1000 木材
+popLand=-1000 土地
+popWonder=10 奇迹
+
+
+
+================================================================================================
+播放广告
+=================================================================================================
+POST /v6/earth/playVideoAd HTTP/1.1
+Host	ios-api.shandianji.cn
+version_name	4.2.1
+Accept	*/*
+Authorization	sdj123456{|}2d2b97888b9f4ec1e9fd9223f882c909
+x-token	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImp0aSI6ImV5SnBkaUk2SWxaeVVHSXllbkUxUjFCc2JHaDZXVmhKT0ZkMGMzYzlQU0lzSW5aaGJIVmxJam9pVUUxamJUbDRURzFsZEZVd1ZWTm9NbU1ySzFKMVp6MDlJaXdpYldGaklqb2laRGt6WVRVMk56WTBZakF5WldZMFltSTFNRGhqWkdRME4yUmlabVJqTW1aaU1qUm1Zak0yTXpkak56UTJOR1V5TkRjell6TTJOakUwWW1FMk5UWXlaaUo5In0.eyJpc3MiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJhdWQiOiJodHRwczpcL1wvd3d3LnNoYW5kaWFuamkuY24iLCJqdGkiOiJleUpwZGlJNklsWnlVR0l5ZW5FMVIxQnNiR2g2V1ZoSk9GZDBjM2M5UFNJc0luWmhiSFZsSWpvaVVFMWpiVGw0VEcxbGRGVXdWVk5vTW1NcksxSjFaejA5SWl3aWJXRmpJam9pWkRrellUVTJOelkwWWpBeVpXWTBZbUkxTURoalpHUTBOMlJpWm1Sak1tWmlNalJtWWpNMk16ZGpOelEyTkdVeU5EY3pZek0yTmpFMFltRTJOVFl5WmlKOSIsImlhdCI6MTU3OTIyMzM0OSwibmJmIjoxNTc5MjIzMzQ5LCJleHAiOjE1ODE4MTUzNDl9.z6cUjjY_CmC6C0MocrAIN4iehCTzsjUIRENnAOhQgcE
+Accept-Encoding	gzip;q=1.0, compress;q=0.5
+Accept-Language	zh-Hans-CN;q=1.0
+accesstoken	1902d9c03cc748f72f3c2cebf4326f23a36538f3
+Content-Length	35
+User-Agent	shandianji/4.2.1 (com.sdj.shandianji; build:2; iOS 13.3.0) Alamofire/4.8.2
+Connection	keep-alive
+Content-Type	application/x-www-form-urlencoded; charset=utf-8
+device	iOS
+
+{"code":0,"msg":"success","data":{"popFood":50738,"popUnused":10}}
+
+
+
+
+
+
+
+key=multiBuildingByThreeHours&tab=2
+key=multiBuildingWonderByThreeHours&tab=3
+
+{"code":0,"msg":"success","data":{"appId":5017542,"codeId":917542933,"state":"eyJpdiI6IkJGNU5LSVNkQWVEaWpzSVpZMm9aeFE9PSIsInZhbHVlIjoiYjJHZXRGTXhzMVpaZXBVY2Vqd1VnYnN5bzYzSVd1OXNLQ3JoekwzU0NQSytZWk55c1hzYlYrU2Y2Y1JMY0s5TSIsIm1hYyI6IjEzMWUwMmE2ZDJiY2VmYTBjY2RmNDMzMzAwNzY2Mzc3OGI4NWM4N2E4NGIwMDEyMjJiOGU5NzA3MjY4MWRhNjYifQ=="}}

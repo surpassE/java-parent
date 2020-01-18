@@ -1,16 +1,12 @@
 package com.sirding.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.framework.redis.Lock;
-import com.framework.redis.RedisLock;
-import com.framework.redis.annotation.DistributeLock;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/lockController")
@@ -29,7 +25,7 @@ public class LockController {
 	 */
 	@RequestMapping(params = "testLock")
 	@ResponseBody
-	@DistributeLock(key = "args[0]", expireTime = 100, waitTime = 3600)
+//	@DistributeLock(key = "args[0]", expireTime = 100, waitTime = 3600)
 	public Map<String, String> testLock(String key){
 		Map<String, String> map = new HashMap<>();
 		LOG.debug("主键：" + key);
@@ -55,20 +51,20 @@ public class LockController {
 	@ResponseBody
 	public Map<String, String> testLock2(String key){
 		Map<String, String> map = new HashMap<>();
-		Lock lock = new RedisLock(key, 100);
-		try {
-			if(lock.tryLock(10000)){
-				LOG.debug("主键：" + key);
-				LOG.debug("do something......");
-				Thread.sleep(1000);
-			}
-		} catch (Exception e) {
-			LOG.debug("sleep interrupted", e);
-			LOG.debug(e.getMessage());
-		}finally {
-			lock.unlock();
-		}
-		map.put("suc", "suc");
+//		Lock lock = new RedisLock(key, 100);
+//		try {
+//			if(lock.tryLock(10000)){
+//				LOG.debug("主键：" + key);
+//				LOG.debug("do something......");
+//				Thread.sleep(1000);
+//			}
+//		} catch (Exception e) {
+//			LOG.debug("sleep interrupted", e);
+//			LOG.debug(e.getMessage());
+//		}finally {
+//			lock.unlock();
+//		}
+//		map.put("suc", "suc");
 		return map;
 	}
 	
@@ -76,20 +72,20 @@ public class LockController {
 	@ResponseBody
 	public Map<String, String> testLock3(String key){
 		Map<String, String> map = new HashMap<>();
-		Lock lock = new RedisLock(key, 100);
-		try {
-			if(lock.tryLock(10000)){
-				LOG.debug("主键：" + key);
-				LOG.debug("do something......");
-				Thread.sleep(1000);
-			}
-		} catch (Exception e) {
-			LOG.debug("sleep interrupted", e);
-			LOG.debug(e.getMessage());
-		}finally {
-			lock.unlock();
-		}
-		map.put("suc", "suc");
+//		Lock lock = new RedisLock(key, 100);
+//		try {
+//			if(lock.tryLock(10000)){
+//				LOG.debug("主键：" + key);
+//				LOG.debug("do something......");
+//				Thread.sleep(1000);
+//			}
+//		} catch (Exception e) {
+//			LOG.debug("sleep interrupted", e);
+//			LOG.debug(e.getMessage());
+//		}finally {
+//			lock.unlock();
+//		}
+//		map.put("suc", "suc");
 		return map;
 	}
 }

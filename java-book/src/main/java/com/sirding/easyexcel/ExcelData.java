@@ -2,27 +2,26 @@ package com.sirding.easyexcel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * 信息
+ * 通过excel导出数据时，此处一定不能使用Accessors属性，否则将服务解析Listener中的invoke数据
  * @author dingzhichao3
  */
 @Data
-@Accessors(chain = true)
 public class ExcelData {
 
-    @ExcelProperty(value="第1例", index = 0)
+    @ExcelProperty(index = 0)
     private String column0;
-    @ExcelProperty(value="第2例", index = 1)
+    @ExcelProperty(index = 1)
     private String column1;
-    @ExcelProperty(value="第3例", index = 2)
+    @ExcelProperty(index = 2)
     private String column2;
-    @ExcelProperty(value="第4例", index = 3)
+    @ExcelProperty(index = 3)
     private String column3;
-    @ExcelProperty(value="第5例", index = 4)
+    @ExcelProperty(index = 4)
     private String column4;
-    @ExcelProperty(value="第6例", index = 5)
+    @ExcelProperty(index = 5)
     private String column5;
     @ExcelProperty(index = 6)
     private String column6;

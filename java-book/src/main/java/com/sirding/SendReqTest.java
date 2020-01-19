@@ -1,4 +1,4 @@
-package com.dobe.flow.statis.test;
+package com.sirding;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpPost;
@@ -8,10 +8,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,7 +21,7 @@ import java.util.Map;
  * @since 2019/4/12
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+//@SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SendReqTest {
 

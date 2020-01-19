@@ -1,5 +1,7 @@
 package com.sirding.easyexcel;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
 
@@ -13,6 +15,75 @@ import java.util.function.Function;
 public class ExcelParseTest {
 
     private String nullFlag = "null";
+
+
+
+    @Test
+    public void createInItem() {
+//        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\京营平台-导出同步失败的信息2019-12-26 15_16_31.xlsx";
+//        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\SMB失败名单1226.xlsx";
+//        String fileName = "C:\\Users\\dingzhichao3\\Desktop\\excel\\新通路企业更名数据-20191224.xlsx";
+//        String fileName = "C:\\Users\\dingzhichao3\\Desktop\\excel\\副本增补版-新金采-M1逾期分配-20200106.xlsx";
+        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\tmp.xlsx";
+        new MyExcelDataListener().read(fileName, (list)-> getInItem(list, ExcelData::getColumn0));
+    }
+
+    @Test
+    public void createInItemBySheetIndex() {
+        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\SMB万家首批数据清洗名单.xlsx";
+        new MyExcelDataListener().read(fileName, 1, (list)->this.getInItem(list, ExcelData::getColumn2));
+    }
+
+    @Test
+    public void insertSQL() {
+        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\smb-jypt-export.xlsx";
+        new MyExcelDataListener().read(fileName, (list)->getInsertSQL("INSERT INTO tmp(a, b, c) VALUES", list, (excelData) -> String.format("('%s','%s'),", excelData.getColumn0(), excelData.getColumn1())));
+        new MyExcelDataListener().read(fileName, (list)->getInsertSQL("INSERT INTO tmp_dd(a, b, c) VALUES", list,
+                (excelData) -> String.format("('%s','%s'),", excelData.getColumn0(), excelData.getColumn1())));
+    }
+
+    @Test
+    public void writeInclude() {
+//        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\test-include.xlsx";
+        String fileName = "C:\\Users\\dingzhichao3\\Desktop\\excel\\SMB-XTL-用户关系.xlsx";
+        Set<String> set = new HashSet<>();
+        set.add("column0");
+        set.add("column15");
+        MyExcelDataListener.writeInclude(fileName, "test", set, getTestData());
+    }
+
+    @Test
+    public void readAndWriteInclude() {
+        Set<String> set = new HashSet<>();
+        set.add("column0");
+        set.add("column1");
+        set.add("column2");
+        set.add("column3");
+        set.add("column4");
+        set.add("column5");
+        List<ExcelData> result = new ArrayList<>();
+        String readFileName = "C:\\Users\\dingzhichao3\\Desktop\\excel\\SMB-新通路用户关系.xlsx";
+        new MyExcelDataListener().read(readFileName, result::addAll);
+
+        result.forEach(item -> {
+            System.out.println(item.getColumn4());
+            JSONObject json = JSON.parseObject(item.getColumn4());
+            item.setColumn2(json.getString("adminTel"));
+            item.setColumn3(json.getString("contactName"));
+            item.setColumn4(json.getString("contactTel"));
+            item.setColumn5(json.getString("contactType"));
+        });
+        String dstFileName = "C:\\Users\\dingzhichao3\\Desktop\\excel\\SMB-XTL-用户关系.xlsx";
+        MyExcelDataListener.writeInclude(dstFileName, "test", set, result);
+    }
+
+    @Test
+    public void writeExclude() {
+        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\test-exclude.xlsx";
+        Set<String> set = new HashSet<>();
+        set.add("column0");
+        MyExcelDataListener.writeExclude(fileName, "我也是测试", set, getTestData());
+    }
 
     @Test
     public void findMissingData() {
@@ -50,43 +121,6 @@ public class ExcelParseTest {
                 System.out.println("重复的key: " + k);
             }
         });
-    }
-
-    @Test
-    public void createInItem() {
-        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\京营平台-导出同步失败的信息2019-12-26 15_16_31.xlsx";
-        new MyExcelDataListener().read(fileName, (list)->getInItem(list, ExcelData::getColumn1));
-    }
-
-    @Test
-    public void createInItemBySheedIndex() {
-        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\SMB万家首批数据清洗名单.xlsx";
-        new MyExcelDataListener().read(fileName, 1, (list)->this.getInItem(list, ExcelData::getColumn2));
-    }
-
-    @Test
-    public void insertSQL() {
-        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\smb-jypt-export.xlsx";
-        new MyExcelDataListener().read(fileName, (list)->getInsertSQL("INSERT INTO tmp(a, b, c) VALUES", list, (excelData) -> String.format("('%s','%s'),", excelData.getColumn0(), excelData.getColumn1())));
-        new MyExcelDataListener().read(fileName, (list)->getInsertSQL("INSERT INTO tmp_dd(a, b, c) VALUES", list,
-                (excelData) -> String.format("('%s','%s'),", excelData.getColumn0(), excelData.getColumn1())));
-    }
-
-    @Test
-    public void writeInclude() {
-        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\test-include.xlsx";
-        Set<String> set = new HashSet<>();
-        set.add("column0");
-        set.add("column15");
-        MyExcelDataListener.writeInclude(fileName, "test", set, getTestData());
-    }
-
-    @Test
-    public void writeExclude() {
-        String fileName = "D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\test-exclude.xlsx";
-        Set<String> set = new HashSet<>();
-        set.add("column0");
-        MyExcelDataListener.writeExclude(fileName, "我也是测试", set, getTestData());
     }
 
     /**
@@ -128,7 +162,12 @@ public class ExcelParseTest {
         List<ExcelData> list = new ArrayList<>();
         int count = 10;
         for (int i = 0; i < count; i++) {
-            list.add(new ExcelData().setColumn0("col1" + i).setColumn1("col2" + i).setColumn15("col15" + i));
+            ExcelData excelData = new ExcelData();
+            excelData.setColumn0("col1" + i);
+            excelData.setColumn1("col2" + i);
+            excelData.setColumn0("col1" + i);
+            excelData.setColumn15("col15" + i);
+            list.add(excelData);
         }
         return list;
     }

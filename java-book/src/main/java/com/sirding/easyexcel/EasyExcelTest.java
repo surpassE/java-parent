@@ -390,6 +390,7 @@ public class EasyExcelTest {
 //        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\新通路\\京营平台-导出同步失败的信息2019-12-24 11_02_22.xlsx");
 //        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\新通路\\新通路低频用户.xlsx");
 //        File file = new File("D:\\test\\system\\system-auth.xlsx");
+//        File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\SMB失败名单1226.xlsx");
         File file = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\smb-jypt-export.xlsx");
         File dstFile = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\数据同步\\1202-1203同步\\xtl_update_rollback.sql");
         File dfile = new File("D:\\项目需求\\京营平台-企业中心2.0-配置中心\\存量异常数据同步\\SMB-万家\\结果.xlsx");
@@ -402,7 +403,7 @@ public class EasyExcelTest {
                 OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
                 StringBuilder sb = new StringBuilder();
                 sb.append("update cfe_company_info set lic_no='");
-                String licNo = l.get(1);
+                String licNo = l.get(0);
                 sb.append(licNo);
                 sb.append("' where company_code = '");
                 sb.append(l.get(0));
@@ -413,8 +414,7 @@ public class EasyExcelTest {
 //                userCodeList.append("('" + l.get(0) + "','" + l.get(1) +  "','" + l.get(2) + "','" + l.get(3) +
 //                        "','"+l.get(4)+"','"+l.get(5)+"',1,2,1,1),");
 
-                userCodeList.append("'" + l.get(1) + "',");
-                list.add(list.get(1));
+                userCodeList.append("'" + l.get(0) + "',");
             } catch (Exception e) {
                 e.printStackTrace();
             }

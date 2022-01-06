@@ -29,7 +29,7 @@ public class StrategyHandlerContext {
                 Arrays.stream(selector.key().split(",")).map(String::trim).forEach(item ->{
                     String key = this.getKey(selector.type(), item);
                     if (map.containsKey(key)) {
-                        log.error("[策略上下文]同一个[{}]对应多个处理, 请处理", key);
+//                        log.error("[策略上下文]同一个[{}]对应多个处理, 请处理", key);
                         throw new RuntimeException(String.format("[策略上下文]同一个[%s]对应多个处理, 请处理", key));
                     }
                     map.put(key, handler);
@@ -43,7 +43,7 @@ public class StrategyHandlerContext {
         String selectKey = this.getKey(type, key);
         StrategyHandler<E, R> handler = (StrategyHandler<E, R>)map.get(selectKey);
         if (handler == null) {
-            log.info("[策略上下文]未找到[{}]对应的策略处理器", selectKey);
+//            log.info("[策略上下文]未找到[{}]对应的策略处理器", selectKey);
             throw new RuntimeException(String.format("[策略上下文]未找到[%s]对应的策略处理器", selectKey));
         }
         return handler.handler(param);
